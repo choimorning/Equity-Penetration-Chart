@@ -1,5 +1,5 @@
 # Equity-Penetration-Chart
-仿某查查股权穿透图
+低仿某查查股权穿透图
 
 在[liubon/equityAtlas](https://github.com/liubon/equityAtlas ) 的基础上进行修改
 
