@@ -1,0 +1,102 @@
+/* @import '~@/assets/styles/variables.less';
+    .container{
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        padding-top:15px;
+        overflow:hidden;
+        background: #fff;
+        .form_input{
+            width: @width;
+        }
+    }
+  svg {
+    cursor: all-scroll;
+} */
+
+.centralText {
+  font: 23spx sans-serif;
+  fill: #222;
+}
+
+.downwardNode text,
+.upwardNode text {
+  font: 10px sans-serif;
+}
+
+.menu-bar {
+  background-color: #c2c0c0;
+  background: 10%;
+  list-style-type: none;
+  padding: 0px;
+  /* margin: 2px; */
+  z-index: 99;
+  position: fixed;
+  right: 5%;
+  bottom: 30%;
+  border: 0.1px solid;
+  border-color: #c2c0c0;
+}
+
+.menu-bar li {
+  padding: 15px;
+  margin: 0;
+  cursor: pointer;
+  color: rgb(97, 96, 96);
+  font-size: 14px;
+  user-select: none;
+}
+
+
+/* 需要<li>有id属性，点击才会有menu-id-active
+   没有id属性点击不会产生这个class */
+.menu-bar li:hover,
+.menu-bar .menu-edit-active {
+  background-color: #0080e3;
+  color: #ffffff;
+}
+
+
+/* .menu-bar .menu-edit-active{
+  background-color: #0080e3;
+  color: #ffffff;
+} */
+/* .menu-bar li:focus{
+  background-color: #0080e3;
+  color: #ffffff;
+} */
+
+.svg-icon {
+  flex: 1;
+  text-align: center;
+  overflow: hidden;
+}
+.svg-img {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  margin-bottom: 0.1rem;
+  filter: drop-shadow(#fff 26px 0);
+}
+.menu-bar li:hover .svg-icon .svg-img,
+.menu-bar .menu-edit-active .svg-icon .svg-img {
+  left: -26px;
+}
+.menu-bar p {
+  margin-top: -2px;
+  margin-bottom: -2px;
+}
+
+/* .downwardLink {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1px;
+    opacity: 1;
+}
+ 
+.upwardLink {
+    fill: none;
+    stroke: #000;
+    stroke-width: 1px;
+    opacity: 0.5;
+} */

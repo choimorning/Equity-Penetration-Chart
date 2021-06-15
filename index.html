@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>股权穿透图</title>
+    <link rel="stylesheet" href="css/gqct.css" />
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/svg-saver-node.js"></script>
+  </head>
+
+  <body>
+    <div>
+      <ul class="menu-bar">
+        <li onclick="editfun()" id="edit">
+          <div class="svg-icon">
+            <img class="svg-img" src="./img/edit.svg" alt="" />
+          </div>
+          <p>编辑</p>
+        </li>
+        <li onclick="refreshfun()">
+          <div class="svg-icon">
+            <img class="svg-img" src="./img/refresh.svg" alt="" />
+          </div>
+          <p>刷新</p>
+        </li>
+        <li onclick="downloadfun()">
+          <div class="svg-icon">
+            <img class="svg-img" src="./img/download.svg" />
+          </div>
+          <p>保存</p>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <iframe
+        id="FullGuQuanIframe"
+        width="100%"
+        height="890px"
+        scrolling="no"
+        src="/TreeGenerator.html"
+        frameborder="0"
+        allowfullscreen="true"
+      >
+      </iframe>
+    </div>
+
+    <script>
+      var editflag = false;
+
+      //刷新
+      var refreshfun = function () {
+        document
+          .getElementById("FullGuQuanIframe")
+          .contentWindow.location.reload();
+        editflag = false;
+        $("#edit").removeClass();
+      };
+
+      //编辑
+      var editfun = function () {
+        var deleteCircle = $("#FullGuQuanIframe")
+          .contents()
+          .find(".deleteCircle")
+          .toggle();
+
+        var deleteMark = $("#FullGuQuanIframe")
+          .contents()
+          .find(".deleteMark")
+          .toggle();
+
+        editflag = !editflag;
+        if (editflag) {
+          $("#edit").attr("class", "menu-edit-active");
+        } else {
+          $("#edit").removeClass();
+        }
+
+        // var deleteCircle = $(".deleteCircle");
+        // var deleteMark = $(".deleteMark");
+
+        // deleteCircle.toggle();
+        // deleteMark.toggle();
+      };
+
+      //下载
+      var downloadfun = function () {
+        var g = document
+          .getElementById("FullGuQuanIframe")
+          .contentDocument.getElementById("product_tree")
+          .getElementsByTagName("g")[0]
+          .getBBox();
+        var gbox = document
+          .getElementById("FullGuQuanIframe")
+          .contentDocument.getElementById("product_tree")
+          .getElementsByClassName("gbox")[0];
+        var x = -g.x + 5; //计算偏移位置
+        var y = -g.y + 5;
+        gbox.style.transform =
+          "translate(" + x + "px" + "," + y + "px" + ")  scale(1)"; //偏移位置
+        var svgbox = $(
+          "#product_tree svg",
+          window.frames["FullGuQuanIframe"].contentDocument
+        );
+        var boxwidth = svgbox.width;
+        var boxheight = svgbox.height;
+        svgbox.attr("width", g.width + 10);
+        svgbox.attr("height", g.height + 10);
+        var svg = document
+          .getElementById("FullGuQuanIframe")
+          .contentDocument.getElementById("product_tree")
+          .getElementsByTagName("svg")[0];
+
+        var iframew = document.getElementById("FullGuQuanIframe").contentWindow;
+        //利用svg-saver.js下载svg图像
+        var svgsaver = new SvgSaver(iframew);
+        svgsaver.saveSvgAsPng(svg, "股权穿透图.png", { scale: 6 });
+
+        function restore() {
+          gbox.style.transform = "";
+          svgbox.attr("width", boxwidth);
+          svgbox.attr("height", boxheight);
+        }
+
+        setTimeout(restore, 1);
+      };
+    </script>
+  </body>
+</html>
