@@ -400,7 +400,7 @@
             .attr("transform", function (d) {
               return "translate(" + d.x + "," + d.y + ")";
             });
-          
+
           //delete mark 删除符号
           nodeUpdate
             .select(".deleteCircle")
@@ -650,8 +650,9 @@
             d.parent.children = newChildren;
             //在删除某个节点后，将其父节点的展开标志置为 +
             $("#" + d.parent.id + "").text("+");
-
-            update(d, originalData, g);
+            
+            //由于删除的是某个节点，但该节点本身不需要更新，更新的是其父节点
+            update(d.parent, originalData, g);
           }
         }
 
