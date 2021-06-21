@@ -152,15 +152,21 @@
             top: 10,
             right: 5,
             bottom: 0,
-            left: 0,
+            left: 5,
           },
         };
 
         //控制画图区域
+        var screenWidth = document.body.clientWidth;
+        var screenHeight = document.body.clientHeight;
         treeConfig.chartWidth =
-          1900 - treeConfig.margin.right - treeConfig.margin.left;
+          screenWidth - treeConfig.margin.right - treeConfig.margin.left;
         treeConfig.chartHeight =
-          920 - treeConfig.margin.top - treeConfig.margin.bottom;
+          screenHeight - treeConfig.margin.top - treeConfig.margin.bottom;
+        // treeConfig.chartWidth =
+        //   1900 - treeConfig.margin.right - treeConfig.margin.left;
+        // treeConfig.chartHeight =
+        //   920 - treeConfig.margin.top - treeConfig.margin.bottom;
         treeConfig.centralHeight = treeConfig.chartHeight / 2;
         treeConfig.centralWidth = treeConfig.chartWidth / 2;
         treeConfig.linkLength = 100;
@@ -523,7 +529,7 @@
                   : forUpward
                   ? d.source.y - 60
                   : d.source.y + 69;
-            (targetX = d.target.x), (targetY = d.target.y);
+            (targetX = d.target.x), (targetY = d.target.y-2);
 
             return (
               "M" +
@@ -650,7 +656,7 @@
             d.parent.children = newChildren;
             //在删除某个节点后，将其父节点的展开标志置为 +
             $("#" + d.parent.id + "").text("+");
-            
+
             //由于删除的是某个节点，但该节点本身不需要更新，更新的是其父节点
             update(d.parent, originalData, g);
           }

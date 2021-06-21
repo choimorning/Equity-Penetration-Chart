@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%">
   <head>
     <meta charset="UTF-8" />
     <title>股权穿透图</title>
@@ -8,7 +8,7 @@
     <script src="js/svg-saver-node.js"></script>
   </head>
 
-  <body>
+  <body style="height: 100%">
     <div>
       <ul class="menu-bar">
         <li onclick="editfun()" id="edit">
@@ -32,11 +32,13 @@
       </ul>
     </div>
 
-    <div>
+    <div style="height: 100%">
+      <!-- iframe将height属性设置为%百分比之前
+        要先保证全部父标签包括body、html等的height是100% -->
       <iframe
         id="FullGuQuanIframe"
         width="100%"
-        height="890px"
+        height="100%"
         scrolling="no"
         src="/TreeGenerator.html"
         frameborder="0"
