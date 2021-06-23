@@ -53,6 +53,7 @@
                   children: null,
                   name: "汉东省交通旅游建设投资集团有限公司",
                   ratio: "95.13%",
+                  mark: "1",
                 },
                 {
                   children: [
@@ -169,7 +170,7 @@
         //   920 - treeConfig.margin.top - treeConfig.margin.bottom;
         treeConfig.centralHeight = treeConfig.chartHeight / 2;
         treeConfig.centralWidth = treeConfig.chartWidth / 2;
-        treeConfig.linkLength = 100;
+        treeConfig.linkLength = 125;
         treeConfig.duration = 500; //动画时间
         return treeConfig;
       };
@@ -215,8 +216,8 @@
           .attr("viewBox", "0 -5 10 10") //坐标系的区域
           .attr("refX", 0) //箭头坐标
           .attr("refY", 0)
-          .attr("markerWidth", 12) //标识的大小
-          .attr("markerHeight", 12)
+          .attr("markerWidth", 10) //标识的大小
+          .attr("markerHeight", 10)
           .attr("orient", "90") //绘制方向，可设定为：auto（自动确认方向）和 角度值
           .attr("stroke-width", 2) //箭头宽度
           .append("path")
@@ -229,10 +230,10 @@
           .attr("markerUnits", "strokeWidth") //设置为strokeWidth箭头会随着线的粗细发生变化
           .attr("markerUnits", "userSpaceOnUse")
           .attr("viewBox", "0 -5 10 10") //坐标系的区域
-          .attr("refX", -5) //箭头坐标
+          .attr("refX", -27) //箭头坐标
           .attr("refY", 0)
-          .attr("markerWidth", 12) //标识的大小
-          .attr("markerHeight", 12)
+          .attr("markerWidth", 10) //标识的大小
+          .attr("markerHeight", 10)
           .attr("orient", "90") //绘制方向，可设定为：auto（自动确认方向）和 角度值
           .attr("stroke-width", 2) //箭头宽度
           .append("path")
@@ -301,7 +302,7 @@
               return d.name == "origin" ? -(rootRectWidth / 2) : -60;
             })
             .attr("y", function (d) {
-              return d.name == "origin" ? -20 : forUpward ? -52 : 12;
+              return d.name == "origin" ? 0 : forUpward ? 0 : 12;
             })
             .attr("width", function (d) {
               return d.name == "origin" ? rootRectWidth : 120;
@@ -333,7 +334,7 @@
               return d.name == "origin" ? "0" : "0";
             })
             .attr("dy", function (d) {
-              return d.name == "origin" ? "10" : forUpward ? "-30" : "35";
+              return d.name == "origin" ? "28" : forUpward ? "23" : "35";
             })
             .attr("text-anchor", function (d) {
               return d.name == "origin" ? "middle" : "middle";
@@ -368,7 +369,7 @@
             .attr("class", "linkname")
             .attr("x", "0")
             .attr("dy", function (d) {
-              return d.name == "origin" ? ".35em" : forUpward ? "-15" : "50";
+              return d.name == "origin" ? ".35em" : forUpward ? "36" : "50";
             })
             .attr("text-anchor", function () {
               return d.name == "origin" ? "middle" : "middle";
@@ -385,11 +386,12 @@
             });
           // .on('click', Change_modal);
 
+          //股权比例
           nodeEnter
             .append("text")
-            .attr("x", "10")
+            .attr("x", "6")
             .attr("dy", function (d) {
-              return d.name == "origin" ? ".35em" : forUpward ? "8" : "10";
+              return d.name == "origin" ? ".35em" : forUpward ? "65" : "10";
             })
             .attr("text-anchor", "start")
             .attr("class", "linkname")
@@ -415,7 +417,7 @@
             })
             .attr("cx", 60)
             .attr("cy", function (d) {
-              return d.name == "origin" ? -20 : forUpward ? -51 : 61;
+              return forUpward ? 0 : 61;
             })
             .style("fill", "#DC143C")
             .style("stroke", "#DC143C")
@@ -432,7 +434,7 @@
             //.attr("id", "deleteMark")
             .attr("dx", 60)
             .attr("dy", function (d) {
-              return forUpward ? -47 : 66;
+              return forUpward ? 4 : 66;
             })
             .attr("text-anchor", "middle")
             .style("fill", "#FFFFFF")
@@ -451,6 +453,16 @@
             //.on("click", click)
             .on("click", deleteClick);
 
+            //反向箭头
+          nodeEnter
+            .append("path")
+            .attr("transform", "translate(0,55)")
+            .attr("d", "M0,-5L5,5 -5,5")
+            .style("fill", "#0080E3")
+            .style("display", function (d) {
+              return d.name == 'origin' ? "none": d.mark==1? "block": "none";
+            });
+
           //子树展开
           nodeUpdate
             .select("circle")
@@ -462,7 +474,7 @@
                 : 6;
             })
             .attr("cy", function (d) {
-              return d.name == "origin" ? -20 : forUpward ? -59 : 69;
+              return d.name == "origin" ? 0 : forUpward ? -7 : 69;
             })
             .style("fill", function (d) {
               return hasChildNodeArr.indexOf(d) != -1 ? "#fff" : "";
@@ -474,7 +486,7 @@
             })
             .style("fill-opacity", function (d) {
               if (d.children) {
-                return 0.35;
+                return 1;
               }
             })
             // Setting summary node style as class as mass style setting is
@@ -490,7 +502,7 @@
             .attr("class", "isExpand")
             .attr("x", "0")
             .attr("dy", function (d) {
-              return forUpward ? -56 : 72;
+              return forUpward ? -4 : 72;
             })
             .attr("text-anchor", "middle")
             .style("fill", "#3399ff")
@@ -524,12 +536,12 @@
               sourceY =
                 d.source.name == "origin"
                   ? forUpward
-                    ? d.source.y - 20
+                    ? d.source.y
                     : d.source.y + 20
                   : forUpward
-                  ? d.source.y - 60
+                  ? d.source.y
                   : d.source.y + 69;
-            (targetX = d.target.x), (targetY = d.target.y-2);
+            (targetX = d.target.x), (targetY = d.target.y + 50);
 
             return (
               "M" +
