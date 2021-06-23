@@ -38,6 +38,7 @@
 
     var getData = function () {
       // 测试内容
+      //msh表示与其父节点是否互相持股
       rootData = {
         downward: {
           children: [],
@@ -53,7 +54,7 @@
                   children: null,
                   name: "汉东省交通旅游建设投资集团有限公司",
                   ratio: "95.13%",
-                  mark: "1",
+                  mshMark: "1",
                 },
                 {
                   children: [
@@ -460,7 +461,7 @@
             .attr("d", "M0,-5L5,5 -5,5")
             .style("fill", "#0080E3")
             .style("display", function (d) {
-              return d.name == 'origin' ? "none": d.mark==1? "block": "none";
+              return d.name == 'origin' ? "none": d.mshMark==1? "block": "none";
             });
 
           //子树展开
